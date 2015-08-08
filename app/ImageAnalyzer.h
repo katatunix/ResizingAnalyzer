@@ -88,12 +88,12 @@ private:
 		float d = 0.f;
 		for (int i = 0; i < comp; i++)
 		{
-			d += abs(p1[i], p2[i]);
+			d += abs((float)p1[i], p2[i]);
 		}
 		return d;
 	}
 
-	float abs(u8 x, float y)
+	float abs(float x, float y)
 	{
 		return x > y ? x - y : y - x;
 	}

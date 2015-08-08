@@ -25,6 +25,9 @@ int main(int argc, const char *argv[])
 	ImageAnalyzer imageAnalyzer;
 	ImageAnalyzer::Result res = imageAnalyzer.resizableDegree(file, minSize);
 
+	printf("shouldBeResized = %d\n", res.shouldBeResized);
+	printf("degree = %.2f\n", res.degree);
+
 	if (!res.shouldBeResized) return -1;
 	return res.degree <= threshold ? 0 : 1;
 }
