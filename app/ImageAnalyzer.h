@@ -11,14 +11,14 @@ private:
 public:
 	struct Result
 	{
-		bool shouldBeResized;
+		bool valid;
 		float degree;
 	};
 
 	Result resizableDegree(const std::string& path, int minSize)
 	{
 		Result res;
-		res.shouldBeResized = false;
+		res.valid = false;
 		res.degree = -1.f;
 
 		tgaInfo* info = tgaLoad(path.c_str());
@@ -75,7 +75,7 @@ public:
 
 		delete [] deltas;
 		res.degree = sum / numPixels;
-		res.shouldBeResized = true;
+		res.valid = true;
 
 	my_end:
 		tgaDestroy(info);
@@ -88,12 +88,12 @@ private:
 		float d = 0.f;
 		for (int i = 0; i < comp; i++)
 		{
-			d += abs((float)p1[i], p2[i]);
+			d += abs(p1[i], p2[i]);
 		}
 		return d;
 	}
 
-	float abs(float x, float y)
+	float abs(u8 x, float y)
 	{
 		return x > y ? x - y : y - x;
 	}
