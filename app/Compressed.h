@@ -6,7 +6,7 @@
 class Compressed : public Path
 {
 public:
-	Compressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath) : Path("")
+	Compressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath)
 	{
 	}
 

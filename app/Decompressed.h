@@ -6,7 +6,7 @@
 class Decompressed : public Path
 {
 public:
-	Decompressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath) : Path("")
+	Decompressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath)
 	{
 	}
 

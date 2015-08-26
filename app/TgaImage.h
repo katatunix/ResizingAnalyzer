@@ -5,7 +5,7 @@
 class TgaImage
 {
 public:
-	TgaImage(const std::string& tgaFilePath)
+	TgaImage(Path& tgaFilePath)
 	{
 	}
 
@@ -31,6 +31,5 @@ public:
 	{
 		return 0;
 	}
-
 
 };

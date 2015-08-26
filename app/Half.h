@@ -6,7 +6,7 @@
 class Half : public Path
 {
 public:
-	Half(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath) : Path("")
+	Half(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath)
 	{
 	}
 

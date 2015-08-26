@@ -1,12 +1,12 @@
 #pragma once
 
 #include <string>
-#include "Path.h"
+#include "TgaImage.h"
 
 class Comparison
 {
 public:
-	Comparison(Path& path1, Path& path2)
+	Comparison(TgaImage& image1, TgaImage& image2)
 	{
 	}
 

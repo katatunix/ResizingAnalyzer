@@ -6,7 +6,7 @@
 class Double : public Path
 {
 public:
-	Double(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath) : Path("")
+	Double(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath)
 	{
 	}
 

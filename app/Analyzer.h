@@ -2,13 +2,13 @@
 
 #include <string>
 #include <exception>
-#include "TgaImage.h"
 #include "Path.h"
 #include "Half.h"
 #include "Double.h"
 #include "Compressed.h"
 #include "Decompressed.h"
 #include "Comparison.h"
+#include "TgaImage.h"
 
 class Analyzer
 {
@@ -27,7 +27,7 @@ public:
 
 	double analyze(Path& inputFilePath)
 	{
-		TgaImage originalImage(inputFilePath.value());
+		TgaImage originalImage(inputFilePath);
 		if (originalImage.width() < m_minSize || originalImage.height() < m_minSize)
 		{
 			throw std::exception("The image size is too small to resize");
@@ -38,20 +38,22 @@ public:
 		Path doubleFilePath(workingFolderPath.value() + "double.tga");
 
 		return Comparison(
-			Path(inputFilePath),
-		
-			Double(
-				m_imageMagickPath,
-				Decompressed(
-					m_etcPackPath,
-					Compressed(
+			originalImage,
+
+			TgaImage(
+				Double(
+					m_imageMagickPath,
+					Decompressed(
 						m_etcPackPath,
-						Half(m_imageMagickPath, inputFilePath, halfFilePath),
+						Compressed(
+							m_etcPackPath,
+							Half(m_imageMagickPath, inputFilePath, halfFilePath),
+							workingFolderPath
+						),
 						workingFolderPath
 					),
-					workingFolderPath
-				),
-				doubleFilePath
+					doubleFilePath
+				)
 			)
 		).result();
 	}

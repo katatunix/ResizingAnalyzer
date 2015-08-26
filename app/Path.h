@@ -6,6 +6,7 @@ class Path
 {
 public:
 	Path(const std::string& value) : m_value(value) { }
+	Path() : Path("") { }
 
 	virtual const std::string& value()
 	{
