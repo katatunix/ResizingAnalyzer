@@ -13,27 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\tga">
+      <UniqueIdentifier>{f7c9a906-e565-485b-9ad3-44722445a2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tmp">
+      <UniqueIdentifier>{fb474ecd-b623-4d0b-b0d6-ccef59703451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\tga.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\tga\tga.cpp">
+      <Filter>Source Files\tga</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Paths.h">
+    <ClInclude Include="..\Process.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\tga.h">
+    <ClInclude Include="..\TgaImage.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImageAnalyzer.h">
+    <ClInclude Include="..\Path.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Half.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Double.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Compressed.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Decompressed.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Comparison.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Analyzer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\BatchAnalyzer.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\tmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Paths.h">
+      <Filter>Source Files\tmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tga\tga.h">
+      <Filter>Source Files\tga</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

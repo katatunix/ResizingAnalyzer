@@ -1,33 +1,40 @@
 #include <stdio.h>
 #include <conio.h>
+#include <exception>
 
-#include "ImageAnalyzer.h"
-//#include "BatchAnalyzer.h"
-//#include "Paths.h"
+#include "Path.h"
+#include "Analyzer.h"
 
 void usage()
 {
-	printf("Usage: ResizingAnalyzer.exe <file> <threshold> <minSize>\n");
+	printf("Usage: ResizingAnalyzer.exe <ImageMagick Path> <etcpack Path> <TGA file path> <min size>\n");
 }
 
 int main(int argc, const char *argv[])
 {
-	if (argc < 4)
+	if (argc != 5)
 	{
 		usage();
-		return 0;
+		return 1;
 	}
 
-	const char* file = argv[1];
-	float threshold = (float)atof(argv[2]);
-	int minSize = atoi(argv[3]);
+	Path imageMagickPath(argv[1]);
+	Path etcPackPath(argv[2]);
+	Path inputFilePath(argv[3]);
+	int minSize = atoi(argv[4]);
 
-	ImageAnalyzer imageAnalyzer;
-	ImageAnalyzer::Result res = imageAnalyzer.resizableDegree(file, minSize);
-
-	printf("valid = %d\n", res.valid);
-	printf("degree = %.2f\n", res.degree);
-
-	if (!res.valid) return -1;
-	return res.degree <= threshold ? 0 : 1;
+	Analyzer analyzer(imageMagickPath, etcPackPath, minSize);
+	int exitCode = 0;
+	try
+	{
+		double res = analyzer.analyze(inputFilePath);
+		printf("Result: %.2f\n", res);
+	}
+	catch (std::exception& ex)
+	{
+		printf("Error: %s\n", ex.what());
+		exitCode = 1;
+	}
+	
+	return exitCode;
 }

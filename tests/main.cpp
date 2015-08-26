@@ -21,3 +21,19 @@ TEST_CASE("Test Paths")
 
 	REQUIRE(paths.hasNext() == false);
 }
+
+#include <Process.h>
+
+TEST_CASE("Test Process Error")
+{
+	Process process("y:\\etcpack\\etcpack.exe");
+	int exitCode = process.execute();
+	REQUIRE(exitCode == 1);
+}
+
+TEST_CASE("Test Process Success")
+{
+	Process process("y:\\etcpack\\etcpack.exe -version");
+	int exitCode = process.execute();
+	REQUIRE(exitCode == 0);
+}

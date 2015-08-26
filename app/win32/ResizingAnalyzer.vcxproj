@@ -12,13 +12,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\tga.cpp" />
+    <ClCompile Include="..\tga\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Analyzer.h" />
     <ClInclude Include="..\BatchAnalyzer.h" />
-    <ClInclude Include="..\ImageAnalyzer.h" />
+    <ClInclude Include="..\Comparison.h" />
+    <ClInclude Include="..\Compressed.h" />
+    <ClInclude Include="..\Decompressed.h" />
+    <ClInclude Include="..\Double.h" />
+    <ClInclude Include="..\Half.h" />
+    <ClInclude Include="..\Path.h" />
     <ClInclude Include="..\Paths.h" />
-    <ClInclude Include="..\tga.h" />
+    <ClInclude Include="..\Process.h" />
+    <ClInclude Include="..\TgaImage.h" />
+    <ClInclude Include="..\tga\tga.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{98969B1C-017E-4430-AEC3-E1DDB989AD48}</ProjectGuid>
