@@ -25,7 +25,7 @@ public:
 	}
 
 	/*
-		3 or 4 or 0
+		3 or 4
 	*/
 	int numChannels()
 	{
