@@ -1,11 +1,16 @@
 #pragma once
 
-#include <string>
+#include "Path.h"
+#include "tga/tga.h"
 
 class TgaImage
 {
 public:
 	TgaImage(Path& tgaFilePath)
+	{
+	}
+
+	~TgaImage()
 	{
 	}
 

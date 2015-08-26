@@ -65,5 +65,11 @@
     <ClInclude Include="..\tga\tga.h">
       <Filter>Source Files\tga</Filter>
     </ClInclude>
+    <ClInclude Include="..\CompDecomp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Resized.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

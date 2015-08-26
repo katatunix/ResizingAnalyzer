@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
+#include <exception>
 
 class Process
 {
@@ -44,6 +45,8 @@ public:
 			)
 		{
 			exitCode = -1;
+			std::string msg = "Could not execute the command: " + m_command;
+			throw std::exception(msg.c_str());
 		}
 		else
 		{

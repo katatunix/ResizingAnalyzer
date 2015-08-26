@@ -1,18 +1,22 @@
 #pragma once
 
 #include <string>
-#include "Path.h"
+#include "Resized.h"
 
-class Double : public Path
+class Double : public Resized
 {
 public:
-	Double(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath)
+	Double(Path& imageMagickPath, Path& inputFilePath, Path& outputFilePath) :
+		Resized(imageMagickPath, inputFilePath, outputFilePath) { }
+
+protected:
+	std::string percent()
 	{
+		return "200%";
 	}
 
-	virtual const std::string& value()
+	std::string msg()
 	{
-		// TODO
-		return m_value;
+		return "Could not double the image";
 	}
 };

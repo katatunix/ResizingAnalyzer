@@ -1,18 +1,27 @@
 #pragma once
 
 #include <string>
-#include "Path.h"
+#include "CompDecomp.h"
 
-class Decompressed : public Path
+class Decompressed : public CompDecomp
 {
 public:
-	Decompressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath)
+	Decompressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath) :
+		CompDecomp(etcPackPath, inputFilePath, outputFolderPath) { }
+
+protected:
+	std::string options()
 	{
+		return "-ext TGA";
 	}
 
-	virtual const std::string& value()
+	std::string msg()
 	{
-		// TODO
-		return m_value;
+		return "Could not decompress the texture";
+	}
+
+	std::string ext()
+	{
+		return ".tga";
 	}
 };

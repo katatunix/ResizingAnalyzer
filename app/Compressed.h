@@ -1,18 +1,27 @@
 #pragma once
 
 #include <string>
-#include "Path.h"
+#include "CompDecomp.h"
 
-class Compressed : public Path
+class Compressed : public CompDecomp
 {
 public:
-	Compressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath)
+	Compressed(Path& etcPackPath, Path& inputFilePath, Path& outputFolderPath) :
+		CompDecomp(etcPackPath, inputFilePath, outputFolderPath) { }
+
+protected:
+	std::string options()
 	{
+		return "-c etc1";
 	}
 
-	virtual const std::string& value()
+	std::string msg()
 	{
-		// TODO
-		return m_value;
+		return "Could not compress the texture";
+	}
+
+	std::string ext()
+	{
+		return ".pkm";
 	}
 };
