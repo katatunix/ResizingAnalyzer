@@ -9,6 +9,10 @@
 #include "Decompressed.h"
 #include "Comparison.h"
 #include "TgaImage.h"
+#include "DosProcess.h"
+#include "System.h"
+#include "MainTga.h"
+#include "AlphaTga.h"
 
 class Analyzer
 {
@@ -33,12 +37,45 @@ public:
 			throw std::exception("The image size is too small to resize");
 		}
 
-		Path workingFolderPath(".\\" + inputFilePath.getFileNameWithoutExt() + "\\");
-		Path halfFilePath(workingFolderPath.value() + "half.tga");
-		Path doubleFilePath(workingFolderPath.value() + "double.tga");
+		std::string imageName = inputFilePath.fileNameWithoutExt();
+
+		Path workingFolderPath(System::currentFolder() + "\\" + imageName);
+		if (DosProcess("md " + workingFolderPath.value()).execute() != 0)
+		{
+			throw std::exception("Could not create working folder");
+		}
+
+		if (!originalImage.hasAlpha())
+		{
+			return analyzeRgb(inputFilePath, originalImage, workingFolderPath);
+		}
+		
+		return mymin(
+			analyzeRgb(
+				MainTga(originalImage, Path(workingFolderPath.value() + "\\" + imageName + "_main.tga")),
+				workingFolderPath
+			),
+			analyzeRgb(
+				AlphaTga(originalImage, Path(workingFolderPath.value() + "\\" + imageName + "_alpha.tga")),
+				workingFolderPath
+			)
+		);
+	}
+
+private:
+	double analyzeRgb(Path& inputFilePath, Path& workingFolderPath)
+	{
+		return analyzeRgb(inputFilePath, TgaImage(inputFilePath), workingFolderPath);
+	}
+
+	double analyzeRgb(Path& inputFilePath, TgaImage& tga, Path& workingFolderPath)
+	{
+		std::string imageName = inputFilePath.fileNameWithoutExt();
+		Path halfFilePath(workingFolderPath.value() + "\\" + imageName + "_half.tga");
+		Path doubleFilePath(workingFolderPath.value() + "\\" + imageName + "_double.tga");
 
 		return Comparison(
-			originalImage,
+			tga,
 
 			TgaImage(
 				Double(
@@ -56,6 +93,11 @@ public:
 				)
 			)
 		).result();
+	}
+
+	double mymin(double x, double y)
+	{
+		return x < y ? x : y;
 	}
 
 };

@@ -15,19 +15,24 @@
     <ClCompile Include="..\tga\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\AlphaTga.h" />
     <ClInclude Include="..\Analyzer.h" />
     <ClInclude Include="..\BatchAnalyzer.h" />
     <ClInclude Include="..\Comparison.h" />
     <ClInclude Include="..\CompDecomp.h" />
     <ClInclude Include="..\Compressed.h" />
     <ClInclude Include="..\Decompressed.h" />
+    <ClInclude Include="..\DosProcess.h" />
     <ClInclude Include="..\Double.h" />
     <ClInclude Include="..\Half.h" />
+    <ClInclude Include="..\MainTga.h" />
     <ClInclude Include="..\Path.h" />
     <ClInclude Include="..\Paths.h" />
     <ClInclude Include="..\Process.h" />
     <ClInclude Include="..\Resized.h" />
+    <ClInclude Include="..\System.h" />
     <ClInclude Include="..\TgaImage.h" />
+    <ClInclude Include="..\TgaSaver.h" />
     <ClInclude Include="..\tga\tga.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

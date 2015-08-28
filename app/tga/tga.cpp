@@ -84,6 +84,39 @@ void tgaLoadHeader(FILE *file, tgaInfo *info) {
 	fread(&cGarbage, sizeof(unsigned char), 1, file);
 }
 
+int saveTga(tgaInfo* info, const char* path)
+{
+	FILE* file = fopen(path, "wb");
+	if (!file) return 1;
+
+	unsigned char cGarbage = 0;
+	short int iGarbage = 0;
+
+	fwrite(&cGarbage, sizeof(unsigned char), 1, file);
+	fwrite(&cGarbage, sizeof(unsigned char), 1, file);
+
+	// type must be 2 or 3
+	fwrite(&info->type, sizeof(unsigned char), 1, file);
+
+	fwrite(&iGarbage, sizeof(short int), 1, file);
+	fwrite(&iGarbage, sizeof(short int), 1, file);
+	fwrite(&cGarbage, sizeof(unsigned char), 1, file);
+	fwrite(&iGarbage, sizeof(short int), 1, file);
+	fwrite(&iGarbage, sizeof(short int), 1, file);
+
+	fwrite(&info->width, sizeof(short int), 1, file);
+	fwrite(&info->height, sizeof(short int), 1, file);
+	fwrite(&info->pixelDepth, sizeof(unsigned char), 1, file);
+
+	fwrite(&cGarbage, sizeof(unsigned char), 1, file);
+
+	fwrite(info->imageData, info->height * info->width * info->pixelDepth / 8 * sizeof(unsigned char), 1, file);
+
+	fclose(file);
+
+	return 0;
+}
+
 // loads the image pixels. You shouldn't call this function
 // directly
 void tgaLoadImageData(FILE *file, tgaInfo *info) {

@@ -38,6 +38,11 @@ public:
 	/*
 		3 or 4
 	*/
+	bool hasAlpha()
+	{
+		return m_info->pixelDepth == 32;
+	}
+
 	int numChannels()
 	{
 		return m_info->pixelDepth / 8;
@@ -47,5 +52,4 @@ public:
 	{
 		return (const char*)m_info->imageData;
 	}
-
 };

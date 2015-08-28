@@ -15,13 +15,14 @@ public:
 	virtual const std::string& value()
 	{
 		if (Process(
-			m_etcPackPath.value() + " " + m_inputFilePath.value() + " " + m_outputFolderPath.value()
-				+ " " + options()
+				m_etcPackPath.value() + " " + m_inputFilePath.value() + " " + m_outputFolderPath.value()
+					+ " " + options(),
+				m_etcPackPath.folderPath()
 			).execute() != 0)
 		{
 			throw std::exception(msg().c_str());
 		}
-		return m_value = m_outputFolderPath.value() + m_inputFilePath.getFileNameWithoutExt() + ext();
+		return m_value = m_outputFolderPath.value() + "\\" + m_inputFilePath.fileNameWithoutExt() + ext();
 	}
 
 protected:

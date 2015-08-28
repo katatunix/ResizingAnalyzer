@@ -1,57 +1,66 @@
 #pragma once
 
-#include <stdio.h>
 #include <string>
+#include <vector>
+#include <exception>
+
+#include <stdio.h>
+#include <windows.h>
+
+#include "Path.h"
+#include "System.h"
 
 class Paths
 {
+private:
+	std::vector<Path> m_list;
+	unsigned int m_idx;
+
 public:
-	Paths(const std::string& txtFilePath) : m_file(NULL), m_txtFilePath(txtFilePath)
+	Paths(Path& rootPath)
 	{
-	}
-
-	virtual ~Paths()
-	{
-		close();
-	}
-
-	void begin()
-	{
-		close();
-		m_file = fopen(m_txtFilePath.c_str(), "rt");
+		if (rootPath.isFolder())
+		{
+			WIN32_FIND_DATA ffd;
+			HANDLE hFind = INVALID_HANDLE_VALUE;
+			std::wstring ws = System::convert(rootPath.value());
+			hFind = FindFirstFile(System::convert(rootPath.value() + "\\*.tga").c_str(), &ffd);
+			if (INVALID_HANDLE_VALUE == hFind)
+			{
+				throw std::exception(("Could not get file list of the folder: " + rootPath.value()).c_str());
+			}
+			do
+			{
+				if (!(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+				{
+					m_list.push_back(
+						Path(
+							rootPath.value() + "\\" + System::convert(ffd.cFileName)
+						)
+					);
+				}
+			}
+			while (FindNextFile(hFind, &ffd) != 0);
+			FindClose(hFind);
+		}
+		else
+		{
+			m_list.push_back(rootPath);
+		}
+		m_idx = 0;
 	}
 
 	bool hasNext()
 	{
-		return m_file && !feof(m_file);
+		return m_idx < m_list.size();
 	}
 
-	std::string next()
+	Path& next()
 	{
-		const int MAX = 1024;
-		char buffer[MAX];
-		fgets(buffer, MAX, m_file);
-
-		int lastIndex = strlen(buffer) - 1;
-		if (lastIndex >= 0 && buffer[lastIndex] == '\n')
+		if (!hasNext())
 		{
-			buffer[lastIndex] = 0;
+			throw std::exception("No element");
 		}
-
-		return std::string(buffer);
+		return m_list[m_idx++];
 	}
-
-private:
-	void close()
-	{
-		if (m_file)
-		{
-			fclose(m_file);
-			m_file = NULL;
-		}
-	}
-
-private:
-	FILE* m_file;
-	std::string m_txtFilePath;
 };

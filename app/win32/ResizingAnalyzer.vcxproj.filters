@@ -16,9 +16,6 @@
     <Filter Include="Source Files\tga">
       <UniqueIdentifier>{f7c9a906-e565-485b-9ad3-44722445a2f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\tmp">
-      <UniqueIdentifier>{fb474ecd-b623-4d0b-b0d6-ccef59703451}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
@@ -56,12 +53,6 @@
     <ClInclude Include="..\Analyzer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\BatchAnalyzer.h">
-      <Filter>Source Files\tmp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Paths.h">
-      <Filter>Source Files\tmp</Filter>
-    </ClInclude>
     <ClInclude Include="..\tga\tga.h">
       <Filter>Source Files\tga</Filter>
     </ClInclude>
@@ -69,6 +60,27 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Resized.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DosProcess.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MainTga.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AlphaTga.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TgaSaver.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Paths.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BatchAnalyzer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

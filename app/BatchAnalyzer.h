@@ -1,73 +1,70 @@
 #pragma once
 
+#include "Analyzer.h"
 #include "Paths.h"
-#include "ImageAnalyzer.h"
-
-#include <stdio.h>
-#include <string>
 #include <vector>
 
 class BatchAnalyzer
 {
-public:
-	BatchAnalyzer(Paths& inputPaths, ImageAnalyzer& imageAnalyzer)
-		: m_inputPaths(inputPaths), m_imageAnalyzer(imageAnalyzer)
-	{
+private:
+	Path& m_imageMagickPath;
+	Path& m_etcPackPath;
+	int m_minSize;
+	Analyzer m_analyzer;
 
+public:
+	BatchAnalyzer(Path& imageMagickPath, Path& etcPackPath, int minSize) :
+		m_imageMagickPath(imageMagickPath),
+		m_etcPackPath(etcPackPath),
+		m_minSize(minSize),
+		m_analyzer(imageMagickPath, etcPackPath, minSize)
+	{
 	}
 
-	std::string analyzeAndResize()
+	void analyze(Paths& paths)
 	{
-		std::vector<std::string> files;
-		std::vector<float> degrees;
-
-		m_inputPaths.begin();
-		while (m_inputPaths.hasNext())
+		std::vector<std::string> pathValues;
+		std::vector<double> diffs;
+		while (paths.hasNext())
 		{
-			std::string path = m_inputPaths.next();
-			files.push_back(path);
-			printf("Process image: %s", path.c_str());
-			ImageAnalyzer::Result res = m_imageAnalyzer.resizableDegree(path, 0);
-			printf("\t%.2f\n", res.degree);
-			degrees.push_back(res.degree);
+			Path& path = paths.next();
+			double diff;
+			try
+			{
+				diff = m_analyzer.analyze(path);
+			}
+			catch (std::exception&)
+			{
+				diff = -1.0;
+			}
+			diffs.push_back(diff);
+			pathValues.push_back(path.value());
 		}
 
-		int count = files.size();
-		for (int i = 0; i < count - 1; i++)
+		int len = diffs.size();
+		for (int i = 0; i < len - 1; i++)
 		{
-			for (int j = i + 1; j < count; j++)
+			for (int j = i + 1; j < len; j++)
 			{
-				if (degrees[i] < degrees[j])
+				if (diffs[i] > diffs[j])
 				{
-					float tmpDeg = degrees[i];
-					degrees[i] = degrees[j];
-					degrees[j] = tmpDeg;
-
-					std::string tmpFile = files[i];
-					files[i] = files[j];
-					files[j] = tmpFile;
+					double tmpDiff = diffs[i];
+					diffs[i] = diffs[j];
+					diffs[j] = tmpDiff;
+					std::string tmpPath = pathValues[i];
+					pathValues[i] = pathValues[j];
+					pathValues[j] = tmpPath;
 				}
 			}
 		}
 
-		std::string res = "";
-		for (int i = 0; i < count; i++)
+		printf("\n\n================================================================\n");
+		printf("REPORT\n");
+		printf("================================================================\n");
+
+		for (int i = 0; i < len; i++)
 		{
-			res += files[i] + "\t" + floatToString(degrees[i]) + "\n";
+			printf("[%.2f] %s\n", diffs[i], pathValues[i].c_str());
 		}
-		
-		return res;
 	}
-
-private:
-	std::string floatToString(float f)
-	{
-		char buffer[32];
-		sprintf(buffer, "%.2f", f);
-		return std::string(buffer);
-	}
-
-private:
-	Paths& m_inputPaths;
-	ImageAnalyzer& m_imageAnalyzer;
 };
